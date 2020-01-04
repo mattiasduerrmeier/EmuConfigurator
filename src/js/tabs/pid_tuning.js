@@ -228,17 +228,7 @@ TABS.pid_tuning.initialize = function (callback) {
             $('.pid_filter select[name="gyroLowpassType"]').val(FILTER_CONFIG.gyro_lowpass_type);
             $('.pid_filter select[name="gyroLowpass2Type"]').val(FILTER_CONFIG.gyro_lowpass2_type);
             $('.pid_filter input[name="dtermLowpass2Frequency"]').val(FILTER_CONFIG.dterm_lowpass2_hz);
-              if (semver.gte(CONFIG.apiVersion, "1.43.0")) {
-                   $('.pid_filter input[name="dtermDynLpf"]').val(FILTER_CONFIG.dterm_dyn_lpf);
-                   $('.pid_filter .gyroDynGroup').hide();
-                if (CONFIG.boardIdentifier !== "HESP" && CONFIG.boardIdentifier !== "SX10" && CONFIG.boardIdentifier !== "FLUX"){
-                  $('.pid_filter input[name="gyroDynLpf"]').val(FILTER_CONFIG.gyro_dyn_lpf);
-                  $('.pid_filter .gyroDynGroup').show();
-                }
-              }else{
-                   $('.pid_filter .gyroDynGroup').hide();
-                  $('.pid_filter .dyndtermlpf').hide();
-              }
+
 
 
             // We load it again because the limits are now bigger than in 1.16.0
@@ -656,11 +646,7 @@ TABS.pid_tuning.initialize = function (callback) {
             FILTER_CONFIG.dterm_lowpass2_hz = parseInt($('.pid_filter input[name="dtermLowpass2Frequency"]').val());
         }
 
-  if (semver.gte(CONFIG.apiVersion, "1.43.0")) {
-        FILTER_CONFIG.dterm_dyn_lpf = parseInt($('.pid_filter input[name="dtermDynLpf"]').val());
-        if (CONFIG.boardIdentifier !== "HESP" && CONFIG.boardIdentifier !== "SX10" && CONFIG.boardIdentifier !== "FLUX"){
-        FILTER_CONFIG.gyro_dyn_lpf = parseInt($('.pid_filter input[name="gyroDynLpf"]').val());
-      }
+
 }
 
         if (semver.gte(CONFIG.apiVersion, "1.40.0")) {
@@ -1103,14 +1089,7 @@ TABS.pid_tuning.initialize = function (callback) {
                 $('input[id="yawLowpassEnabled"]').prop('checked', presetJson[presetSelected]['yaw_lowpass_enabled'] !== "OFF").change();
                 $('.pid_filter input[name="yawLowpassFrequency"]').val(presetJson[presetSelected]['yaw_lowpass_hz']);
 
-                if (semver.gte(CONFIG.apiVersion, "1.43.0")) {
-                  if (CONFIG.boardIdentifier !== "HESP" && CONFIG.boardIdentifier !== "SX10" && CONFIG.boardIdentifier !== "FLUX"){
-                  $('input[id="gyroDynLpfEnabled"]').prop('checked', presetJson[presetSelected]['gyroDynLpfEnabled'] !== "OFF").change();
-                  $('.pid_filter input[name="gyroDynLpf"]').val(presetJson[presetSelected]['gyro_dyn_lpf']);
-                }
-                  $('input[id="dtermDynLpfEnabled"]').prop('checked', presetJson[presetSelected]['dtermDynLpfEnabled'] !== "OFF").change();
-                  $('.pid_filter input[name="dtermDynLpf"]').val(presetJson[presetSelected]['dterm_dyn_lpf']);
-                }
+
                 // Other settings
 
                 var iDecayNumberElement = $('input[name="feedforwardTransition-number"]');
